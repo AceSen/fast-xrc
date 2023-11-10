@@ -7,7 +7,7 @@ const provider = config.providerUrl ? new ethers.JsonRpcProvider(config.provider
 async function scription() { 
 
     const wallet = new ethers.Wallet(config.privateKey, provider);
-
+    const address = await wallet.getAddress();
     console.log(`地址: ${address}`)
     
     for (let i = 1; i <= config.num; i++) {
@@ -37,6 +37,8 @@ async function scription() {
             console.log(`第${i}次铸造,发生错误: ${err} `)
             console.dir(err)
         });
+
+        
     }
     
 
