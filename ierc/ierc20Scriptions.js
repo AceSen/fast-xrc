@@ -2,12 +2,15 @@
 const ethers = require('ethers');
 const config = require('./ierc20Config.json');
 
+const DateUtils = require('../utils/DateUtils')
+
 const provider = config.providerUrl ? new ethers.JsonRpcProvider(config.providerUrl) : ethers.getDefaultProvider();
 
 async function scription() { 
 
     const wallet = new ethers.Wallet(config.privateKey, provider);
     const address = await wallet.getAddress();
+    let nonce = await wallet.getNonce();
     console.log(`地址: ${address}`)
     
     for (let i = 1; i <= config.num; i++) {
@@ -26,22 +29,27 @@ async function scription() {
             value: 0,
             data: calldataCode
         }
-
         
-        console.log(`第${i}次铸造......`)
+        tx.nonce = nonce;
+        
+        console.log(`第${i}次铸造......   nonce: ${nonce}`)
         wallet.sendTransaction(tx).then(res => {
-            console.log(`第${i}次铸造,返回值: + ${res}`)
-            console.dir(res)
+            console.log(`第${i}次铸造,返回值: + ${res.hash}`)
+            // console.dir(res)
+            // 铸造成功
+            // console.log(`铸造成功, txHash: ${res.hash}`)
 
         }).catch(err => {
             console.log(`第${i}次铸造,发生错误: ${err} `)
             console.dir(err)
         });
 
+            
+        ++nonce;
         
+        // DateUtils.sleep(100)
     }
     
-
 }
 
 scription();
