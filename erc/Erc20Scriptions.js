@@ -12,18 +12,19 @@ async function scription() {
     console.log(`地址: ${address}`)
     
     for (let i = 1; i <= config.num; i++) {
-        let calldata = "data:application/json,"
+        let calldata = "data:,"
+        let id = (Math.random() * 21_000_000).toFixed(0);
         let content = {
-            "p": "ierc-20",
+            "p": "erc-20",
             "op": "mint",
             "tick": config.tick + "",
-            "amt": config.amt + "",
-            "nonce": new Date().getTime()
+            "id": id,
+            "amt": config.amt + ""
         }
         calldata += JSON.stringify(content);
         let calldataCode = ethers.hexlify(ethers.toUtf8Bytes(calldata));
         let tx = {
-            to: ethers.getAddress("0x0000000000000000000000000000000000000000"),
+            to: address,
             value: 0,
             data: calldataCode
         }

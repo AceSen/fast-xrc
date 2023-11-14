@@ -1,7 +1,8 @@
 {
     "providerUrl": "",
     "privateKey": "",
-    "tick": "eths",
+    "gasPrice": 12000000000,
+    "tick": "1m",
     "amt": "1000",
     "num": 2
 }
