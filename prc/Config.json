@@ -1,0 +1,7 @@
+{
+    "providerUrl": "https://polygon-rpc.com/",
+    "privateKey": "",
+    "tick": "pols",
+    "amt": "100000000",
+    "num": 1000
+}
